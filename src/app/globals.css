@@ -1,26 +1,169 @@
 @import "tailwindcss";
 
+/* ─── AURIC Architectural Platinum & Warm Champagne Studio Palette ─── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #09090b;
+  --surface: #121215;
+  --surface-2: #1a1a1e;
+  --surface-3: #24242a;
+  --foreground: #f5f5f7;
+  --muted: #8e8e93;
+  --faint: #545458;
+  --gold: #d8c39d;         /* Refined Warm Platinum Champagne */
+  --gold-light: #f0e6d2;   /* Soft Ivory Shimmer */
+  --gold-deep: #9e8b6b;    /* Antique Studio Bronze */
+  --ember: #d96b43;        /* Warm Copper Accent */
+  --line: rgba(255, 255, 255, 0.07);
+  --line-strong: rgba(216, 195, 157, 0.25);
+  --glass: rgba(18, 18, 21, 0.82);
+  --glow: rgba(216, 195, 157, 0.15);
+  --radius: 1.25rem;
+  --font-syne: "Syne", system-ui, sans-serif;
+  --font-inter: "Inter", system-ui, sans-serif;
+  --font-cormorant: "Cormorant Garamond", Georgia, serif;
+}
+
+.light {
+  --background: #f7f7f9;
+  --surface: #ffffff;
+  --surface-2: #eeeeef;
+  --surface-3: #e0e0e5;
+  --foreground: #09090b;
+  --muted: #6e6e73;
+  --faint: #8e8e93;
+  --gold: #8c764e;
+  --gold-light: #b89f74;
+  --gold-deep: #5e4d2e;
+  --ember: #b84a24;
+  --line: rgba(9, 9, 11, 0.08);
+  --line-strong: rgba(140, 118, 78, 0.28);
+  --glass: rgba(255, 255, 255, 0.85);
+  --glow: rgba(140, 118, 78, 0.14);
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-deep: var(--gold-deep);
+  --color-ember: var(--ember);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --font-display: var(--font-syne);
+  --font-body: var(--font-inter);
+  --font-serif: var(--font-cormorant);
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 32s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-spin-slow: spin 14s linear infinite;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+  --animate-pulse-glow: pulse-glow 3s ease-in-out infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes shimmer {
+  from { background-position: -200% center; }
+  to { background-position: 200% center; }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-2%, 2%); }
+  40% { transform: translate(2%, -1%); }
+  60% { transform: translate(-1%, -2%); }
+  80% { transform: translate(1%, 2%); }
+}
+
+/* ─── Base Styles ─────────────────────────────────────────────── */
+* { border-color: var(--line); }
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold-deep) transparent;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), sans-serif;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
 }
+
+::selection { background: var(--gold); color: #09090b; }
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+/* ─── Master Platinum Utilities ───────────────────────────────── */
+.font-display { font-family: var(--font-display), sans-serif; }
+.font-serif-accent { font-family: var(--font-serif), serif; }
+
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(24px) saturate(1.5);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
+  border: 1px solid var(--line-strong);
+}
+
+.text-gradient-gold {
+  background: linear-gradient(110deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-deep) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-shimmer {
+  background: linear-gradient(110deg, var(--gold-deep) 15%, var(--gold-light) 50%, var(--gold-deep) 85%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 3.5s linear infinite;
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1px var(--line-strong);
+  color: transparent;
+}
+
+.noise::after {
+  content: "";
+  position: absolute;
+  inset: -100%;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 8s steps(10) infinite;
+}
+
+.vignette {
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, transparent 35%, var(--background) 100%);
+}
+
+.mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+}
+
+.perspective-1200 { perspective: 1200px; }
+.preserve-3d { transform-style: preserve-3d; }
