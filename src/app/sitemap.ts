@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { products } from "@/lib/products";
 
+export const dynamic = "force-static";
+
 const base = "https://auric.example.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
